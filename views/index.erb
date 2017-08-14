@@ -1,31 +1,54 @@
 <h1><%= @title %></h1>
 
+
+<div class="report">
+  <h3>/users/PZS0562</h3>
+  <div class="chart chart1" data-title = "916417 files", data-ranges = "[0,800000,1000000]", data-measures="[916417]" data-markers="[]"><svg></svg></div>
+  <div class="chart chart2" data-title = "101800800 blocks", data-ranges = "[0,419430400,524288000]", data-measures="[101800800]" data-markers="[]"><svg></svg></div>
+</div>
+
+<div class="report">
+  <h3>/users/PZS0530</h3>
+  <div class="chart chart3" data-title = "2 files", data-ranges = "[0,800000,1000000]", data-measures="[2]" data-markers="[]"><svg></svg></div>
+  <div class="chart chart4" data-title = "33352 blocks", data-ranges = "[0,419430400,524288000]", data-measures="[33352]" data-markers="[]"><svg></svg></div>
+</div>
+
 Output generated: <%= Time.now %>
 
 <pre>
 $ <%= @command %>
+<%= @output %>
+
+$ quota
+Disk quotas for user efranz (uid 10851):
+     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
+10.11.200.25:/PZS0530/
+                  33352  524288000 524288000               2  1000000 1000000
+10.11.200.23:/PZS0562/
+                101800800  524288000 524288000          916451  1000000 1000000
 </pre>
 
-<table class="table table-bordered">
-  <tr>
-    <th>USER</th>
-    <th>PID</th>
-    <th>%CPU</th>
-    <th>%MEM</th>
-    <th>VSZ</th>
-    <th>RSS</th>
-    <th>TTY</th>
-    <th>STAT</th>
-    <th>START</th>
-    <th>TIME</th>
-    <th>COMMAND</th>
-  </tr>
-  <% @output.each do |row| %>
-  <tr>
-    <% row.each do |value| %>
-      <td><%= value %></td>
-    <% end %>
-  </tr>
-  <% end %>
+<script>
+var chart = function(selector, data){
+  nv.addGraph(function() {
+      var chart = nv.models.bulletChart();
 
-</table>
+      d3.select(selector)
+      .datum(data)
+      .transition().duration(1000)
+      .call(chart);
+
+      return chart;
+  });
+};
+
+chart($('.chart1').find('svg').get(0), $('.chart1').data());
+chart($('.chart2').find('svg').get(0), $('.chart2').data());
+chart($('.chart3').find('svg').get(0), $('.chart3').data());
+chart($('.chart4').find('svg').get(0), $('.chart4').data());
+
+// FIXME:
+//$('.chart').each(function(){
+//    chart($(this).find('svg').get(0), $(this).data());
+//});
+</script>

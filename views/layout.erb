@@ -4,12 +4,18 @@
   <title><%= @app_title %></title>
   <meta charset="UTF-8">
 
-  <%# reload every 15 seconds %>
-  <meta http-equiv="refresh" content="15">
-
   <link rel="stylesheet" type="text/css" href="<%= url("/bootstrap-3.3.7-dist/css/bootstrap.min.css") %>">
-
   <%= erb(:ood_styles) %>
+
+  <link rel="stylesheet" type="text/css" href="<%= url("/nvd3-1.8.1/nv.d3.css") %>">
+
+  <script src="<%= url("/jquery-3.2.1/jquery-3.2.1.min.js") %>"></script>
+  <script src="<%= url("/bootstrap-3.3.7-dist/js/bootstrap.min.js") %>"></script>
+  <script src="<%= url("/d3-3.5.17/d3.min.js") %>"></script>
+  <script src="<%= url("/nvd3-1.8.1/nv.d3.min.js") %>"></script>
+  <style>
+  .report div.chart { height: 50px;  }
+  </style>
 </head>
 <body>
 
@@ -47,8 +53,5 @@
 
   <%= yield %>
 </div>
-
-<script src="<%= url("/bootstrap-3.3.7-dist/js/bootstrap.min.js") %>"></script>
-<script src="<%= url("/jquery-3.2.1/jquery-3.2.1.min.js") %>"></script>
 </body>
 </html>
