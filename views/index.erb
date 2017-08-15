@@ -3,14 +3,14 @@
 
 <div class="report">
   <h3>/users/PZS0562</h3>
-  <div class="chart chart1" data-title = "916417 files", data-ranges = "[0,800000,1000000]", data-measures="[916417]" data-markers="[]"><svg></svg></div>
-  <div class="chart chart2" data-title = "101800800 blocks", data-ranges = "[0,419430400,524288000]", data-measures="[101800800]" data-markers="[]"><svg></svg></div>
+  <div class="chart chart1" data-title = "Blocks", data-limit = "524288000", data-value="101800800"></div>
+  <div class="chart chart2" data-title = "Files", data-limit = "1000000", data-value="916417"></div>
 </div>
 
 <div class="report">
   <h3>/users/PZS0530</h3>
-  <div class="chart chart3" data-title = "2 files", data-ranges = "[0,800000,1000000]", data-measures="[2]" data-markers="[]"><svg></svg></div>
-  <div class="chart chart4" data-title = "33352 blocks", data-ranges = "[0,419430400,524288000]", data-measures="[33352]" data-markers="[]"><svg></svg></div>
+  <div class="chart chart3" data-title = "Blocks", data-limit = "524288000", data-value="33352"></div>
+  <div class="chart chart4" data-title = "Files", data-ranges = "1000000", data-value="2"></div>
 </div>
 
 Output generated: <%= Time.now %>
@@ -28,27 +28,13 @@ Disk quotas for user efranz (uid 10851):
                 101800800  524288000 524288000          916451  1000000 1000000
 </pre>
 
+<%= erb(:chart) %>
 <script>
-var chart = function(selector, data){
-  nv.addGraph(function() {
-      var chart = nv.models.bulletChart();
 
-      d3.select(selector)
-      .datum(data)
-      .transition().duration(1000)
-      .call(chart);
+$(".chart").each(function(){
+  var d = $(this).data();
+  chart(this, d.title, d.limit, d.value);
+});
 
-      return chart;
-  });
-};
-
-chart($('.chart1').find('svg').get(0), $('.chart1').data());
-chart($('.chart2').find('svg').get(0), $('.chart2').data());
-chart($('.chart3').find('svg').get(0), $('.chart3').data());
-chart($('.chart4').find('svg').get(0), $('.chart4').data());
-
-// FIXME:
-//$('.chart').each(function(){
-//    chart($(this).find('svg').get(0), $(this).data());
-//});
+//chart($('.chart1').get(0), "Blocks", 524288000, 101800800);
 </script>

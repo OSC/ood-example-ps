@@ -1,0 +1,61 @@
+<script>
+// use c3.js to generate a bar chart that changes color when passing limit
+var chart = function(selector, title, limit, value) {
+  var warn = Math.round(limit * 0.8);
+  return c3.generate({
+    bindto: selector,
+    padding: {
+      left: 60,
+      right: 60
+    },
+    data: {
+      x: 'x',
+      columns: [
+        ['x', title],
+        ['num ' + title.toLowerCase(), value]
+      ],
+      type: 'bar',
+      color: function(color, d) {
+        if (d.value > warn && d.value < limit)
+          return "#f0ad4e";
+        else if (d.value >= limit)
+          return "#d9534f";
+        else
+          return "#337ab7";
+      }
+
+    },
+    bar: {
+      zerobased: true
+    },
+    axis: {
+      rotated: true,
+      x: {
+        type: 'category',
+      },
+      y: {
+        max: limit,
+        tick: {
+          count: 4,
+          format: function(x) {
+            return Math.round(x);
+          }
+        }
+      }
+    },
+    grid: {
+      y: {
+        lines: [{
+          value: warn,
+          text: "warn",
+          position: 'start'
+        }, {
+          value: limit,
+          text: "limit",
+          position: 'start'
+        }]
+      },
+    }
+  });
+};
+</script>
