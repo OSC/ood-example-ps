@@ -1,8 +1,9 @@
 <style>
   .ood-appkit.navbar ul.navbar-breadcrumbs > li > a, .ood-appkit.navbar ul.navbar-breadcrumbs > li + li:before {
     float: left;
-    padding: 15px 15px;
+    padding: 15px 0;
     font-size: 18px;
+    margin-left: 15px;
     line-height: 20px;
     height: 50px;
   }
@@ -29,8 +30,9 @@
     float: left;
   }
 
-  .ood-appkit.navbar ul.navbar-breadcrumbs > li + li:before {
-    padding: 15px 0;
+
+  .ood-appkit.navbar ul.navbar-breadcrumbs > li + li a:before {
+    margin-right: 15px;
     content: '/';
   }
 
